@@ -122,49 +122,49 @@
     </div>
 
     <!-- লগইন মোডাল (ফরগোট পাসওয়ার্ডসহ) -->
-    <div id="loginModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
-            <div class="modal-header">User Login</div>
-            <input type="text" id="userInput" class="form-input" placeholder="USERNAME / PHONE">
-            <input type="password" id="passInput" class="form-input" placeholder="PASSWORD">
-            <button class="btn-log" style="width:100%" onclick="handleLogin()">LOGIN</button>
-            <div class="forgot-pass" onclick="alert('সাপোর্ট টিমের সাথে যোগাযোগ করুন!')">FORGOT PASSWORD?</div>
-        </div>
+<div id="loginModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+        <div class="modal-header">User Login</div>
+        <input type="text" id="userInput" class="form-input" placeholder="USERNAME / PHONE">
+        <input type="password" id="passInput" class="form-input" placeholder="PASSWORD">
+        <!-- এখানে handleLogin() কল করা আছে, যা ঠিক আছে -->
+        <button class="submit-btn" style="width:100%" onclick="handleLogin()">LOGIN</button>
+        <div class="forgot-pass" onclick="alert('সাপোর্ট টিমের সাথে যোগাযোগ করুন!')">FORGOT PASSWORD?</div>
     </div>
+</div>
 
-    <!-- রেজিস্ট্রেশন মোডাল -->
-    <div id="regModal" class="modal">
-        <div class="modal-content">
-            <span class="close-btn" onclick="closeModal('regModal')">&times;</span>
-            <div class="modal-header">Create Account</div>
-            <input type="text" class="form-input" placeholder="FULL NAME">
-            <input type="text" class="form-input" placeholder="PHONE NUMBER">
-            <input type="password" class="form-input" placeholder="SET PASSWORD">
-            <button class="btn-log" style="width:100%; background:#22c55e" onclick="alert('Registration Successful!')">REGISTER</button>
-        </div>
+<!-- রেজিস্ট্রেশন মোডাল -->
+<div id="regModal" class="modal">
+    <div class="modal-content">
+        <span class="close-btn" onclick="closeModal('regModal')">&times;</span>
+        <div class="modal-header">Create Account</div>
+        <input type="text" class="form-input" placeholder="FULL NAME">
+        <input type="text" class="form-input" placeholder="PHONE NUMBER">
+        <input type="password" class="form-input" placeholder="SET PASSWORD">
+        <!-- পরিবর্তন: এখানে সরাসরি alert সরিয়ে handleRegistration() ফাংশনটি কল করা হয়েছে -->
+        <button class="submit-btn" style="width:100%; background:#22c55e; color: black;" onclick="handleRegistration()">REGISTER</button>
     </div>
+</div>
+
 <!-- ১. ডিপোজিট পপআপ -->
 <div id="depModal" class="modal">
     <div class="modal-content" style="text-align: left;">
         <span class="close-btn" onclick="closeModal('depModal')">&times;</span>
         <div class="modal-header">DEPOSIT MONEY</div>
-        
         <label class="label" style="font-size: 10px; color: #888;">SELECT GATEWAY</label>
         <select class="form-input">
             <option>BKASH PERSONAL</option>
             <option>NAGAD PERSONAL</option>
         </select>
-
         <div style="background: #1a3126; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed #facc15;">
             <p style="font-size: 10px; color: #facc15;">SEND MONEY TO:</p>
             <p style="font-size: 18px; font-weight: bold; letter-spacing: 2px; color: #fff;">017XXXXXXXX</p>
         </div>
-
-        <input type="number" class="form-input" placeholder="AMOUNT (MIN: 200)">
-        <input type="text" class="form-input" placeholder="TRANSACTION ID (TrxID)">
-        
-        <button class="submit-btn" style="background: #22c55e;" onclick="alert('আপনার ডিপোজিট রিকোয়েস্ট পেন্ডিং আছে!')">SUBMIT DEPOSIT</button>
+        <input type="number" class="form-input" id="depAmount" placeholder="AMOUNT (MIN: 200)">
+        <input type="text" class="form-input" id="trxId" placeholder="TRANSACTION ID (TrxID)">
+        <!-- এখানে submitDeposit() কল করলে এটি আরও প্রফেশনাল হবে -->
+        <button class="submit-btn" style="background: #22c55e; color: black;" onclick="submitDeposit()">SUBMIT DEPOSIT</button>
     </div>
 </div>
 
@@ -173,19 +173,17 @@
     <div class="modal-content" style="text-align: left;">
         <span class="close-btn" onclick="closeModal('withdrawModal')">&times;</span>
         <div class="modal-header">WITHDRAW MONEY</div>
-        
         <label class="label" style="font-size: 10px; color: #888;">WITHDRAW METHOD</label>
         <select class="form-input">
             <option>BKASH</option>
             <option>NAGAD</option>
         </select>
-
         <input type="text" class="form-input" placeholder="YOUR WALLET NUMBER">
         <input type="number" class="form-input" placeholder="AMOUNT (MIN: 500)">
-        
-        <button class="submit-btn" onclick="alert('আপনার উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!')">REQUEST WITHDRAW</button>
+        <button class="submit-btn" style="color: black;" onclick="alert('আপনার উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!')">REQUEST WITHDRAW</button>
     </div>
 </div>
+
 
     <footer>
         <a href="#" class="nav-item"><span>🏠</span>HOME</a>

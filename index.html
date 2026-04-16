@@ -335,6 +335,28 @@ function updateNumber() {
                 alert("সঠিক ইউজারনেম ও পাসওয়ার্ড দিন!");
             }
         }
+        // প্রোফাইল ওপেন করার ফাংশন
+function openProfile() {
+    // ইউজার লগইন না থাকলে সরাসরি লগইন পপআপ দেখাবে
+    if (document.getElementById('userArea').style.display === "none") {
+        openModal('loginModal');
+    } else {
+        openModal('profileModal');
+    }
+}
+
+// লগআউট ফাংশন
+function handleLogout() {
+    if(confirm("আপনি কি লগআউট করতে চান?")) {
+        // মেইন ইউজার এরিয়া লুকিয়ে গেস্ট এরিয়া দেখানো
+        document.getElementById('userArea').style.display = "none";
+        document.getElementById('guestArea').style.display = "flex";
+        closeModal('profileModal');
+        alert("লগআউট সফল হয়েছে!");
+        location.reload(); // পেজ রিফ্রেশ করে আগের অবস্থায় ফেরা
+    }
+}
+
     </script>
       
 </body>

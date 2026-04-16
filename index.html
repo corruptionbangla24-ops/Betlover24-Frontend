@@ -264,6 +264,25 @@
             closeModal('regModal');
             activateUserPanel(); // ইউজার প্যানেল একটিভ করা
         }
+function updateNumber() {
+    const method = document.getElementById('methodSelect').value;
+    const numberText = document.getElementById('displayNumber');
+    const labelText = document.getElementById('methodLabel');
+
+    if (method === "bkash_p") {
+        numberText.innerText = "017XXXXXXXX"; // বিকাশ পারসোনাল নম্বর
+        labelText.innerText = "SEND MONEY TO (BKASH P):";
+    } else if (method === "bkash_a") {
+        numberText.innerText = "018XXXXXXXX"; // বিকাশ এজেন্ট নম্বর
+        labelText.innerText = "CASH OUT TO (BKASH A):";
+    } else if (method === "nagad_p") {
+        numberText.innerText = "019XXXXXXXX"; // নগদ পারসোনাল নম্বর
+        labelText.innerText = "SEND MONEY TO (NAGAD P):";
+    } else if (method === "nagad_a") {
+        numberText.innerText = "016XXXXXXXX"; // নগদ এজেন্ট নম্বর
+        labelText.innerText = "CASH OUT TO (NAGAD A):";
+    }
+}
 
         // ৫. লগইন ফাংশন
         function handleLogin() {

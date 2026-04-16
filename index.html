@@ -219,6 +219,24 @@
                 card.style.display = txt.toUpperCase().includes(filter) ? "" : "none";
             }
         });
+        function handleRegistration() {
+            // ১. সাকসেস মেসেজ দেখানো
+            alert('REGISTRATION SUCCESSFUL!');
+
+            // ২. রেজিস্ট্রেশন পপআপ বন্ধ করা
+            closeModal('regModal');
+
+            // ৩. গেস্ট এরিয়া লুকিয়ে ইউজার এরিয়া দেখানো (অটো লগইন)
+            document.getElementById('guestArea').style.display = "none";
+            document.getElementById('userArea').style.display = "flex";
+
+            // ৪. ডিপোজিট ও উইথড্র বাটনগুলোকে পপআপের সাথে কানেক্ট করা
+            document.querySelector('.dep-btn').onclick = () => openModal('depModal');
+            document.querySelector('.win-btn').onclick = () => openModal('withdrawModal');
+
+            // ৫. শুরুতে ব্যালেন্স ০.০০ সেট করা
+            document.getElementById('mainBalance').innerText = "৳ 0.00";
+        }
 
         function handleLogin() {
     const user = document.getElementById('userInput').value;

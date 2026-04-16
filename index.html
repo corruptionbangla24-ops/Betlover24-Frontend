@@ -147,26 +147,33 @@
     </div>
 </div>
 
-<!-- ১. ডিপোজিট পপআপ -->
+<!-- ১. ডিপোজিট পপআপ (৪টি অপশনসহ) -->
 <div id="depModal" class="modal">
     <div class="modal-content" style="text-align: left;">
         <span class="close-btn" onclick="closeModal('depModal')">&times;</span>
         <div class="modal-header">DEPOSIT MONEY</div>
+        
         <label class="label" style="font-size: 10px; color: #888;">SELECT GATEWAY</label>
-        <select class="form-input">
-            <option>BKASH PERSONAL</option>
-            <option>NAGAD PERSONAL</option>
+        <!-- অন-চেঞ্জ ফাংশন যোগ করা হয়েছে নম্বর বদলানোর জন্য -->
+        <select class="form-input" id="methodSelect" onchange="updateNumber()">
+            <option value="bkash_p">BKASH PERSONAL</option>
+            <option value="bkash_a">BKASH AGENT</option>
+            <option value="nagad_p">NAGAD PERSONAL</option>
+            <option value="nagad_a">NAGAD AGENT</option>
         </select>
+
         <div style="background: #1a3126; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed #facc15;">
-            <p style="font-size: 10px; color: #facc15;">SEND MONEY TO:</p>
-            <p style="font-size: 18px; font-weight: bold; letter-spacing: 2px; color: #fff;">017XXXXXXXX</p>
+            <p id="methodLabel" style="font-size: 10px; color: #facc15;">SEND MONEY TO (BKASH P):</p>
+            <p id="displayNumber" style="font-size: 18px; font-weight: bold; letter-spacing: 2px; color: #fff;">017XXXXXXXX</p>
         </div>
+
         <input type="number" class="form-input" id="depAmount" placeholder="AMOUNT (MIN: 200)">
         <input type="text" class="form-input" id="trxId" placeholder="TRANSACTION ID (TrxID)">
-        <!-- এখানে submitDeposit() কল করলে এটি আরও প্রফেশনাল হবে -->
+        
         <button class="submit-btn" style="background: #22c55e; color: black;" onclick="submitDeposit()">SUBMIT DEPOSIT</button>
     </div>
 </div>
+
 
 <!-- ২. উইথড্র পপআপ -->
 <div id="withdrawModal" class="modal">

@@ -205,58 +205,74 @@
             pagination: { el: ".swiper-pagination", clickable: true },
         });
 
-        // ২. পপআপ ফাংশন
-        function openModal(id) { document.getElementById(id).style.display = "flex"; }
-        function closeModal(id) { document.getElementById(id).style.display = "none"; }
-
-        // ৩. সার্চ ফাংশন
-        const searchInput = document.getElementById('gameSearch');
-        const cards = document.getElementsByClassName('game-card');
-        searchInput.addEventListener('keyup', () => {
-            let filter = searchInput.value.toUpperCase();
-            for (let card of cards) {
-                let txt = card.getElementsByTagName('p')[0].innerText;
-                card.style.display = txt.toUpperCase().includes(filter) ? "" : "none";
-            }
-        });
-        function handleRegistration() {
-            // ১. সাকসেস মেসেজ দেখানো
-            alert('REGISTRATION SUCCESSFUL!');
-
-            // ২. রেজিস্ট্রেশন পপআপ বন্ধ করা
-            closeModal('regModal');
-
-            // ৩. গেস্ট এরিয়া লুকিয়ে ইউজার এরিয়া দেখানো (অটো লগইন)
-            document.getElementById('guestArea').style.display = "none";
-            document.getElementById('userArea').style.display = "flex";
-
-            // ৪. ডিপোজিট ও উইথড্র বাটনগুলোকে পপআপের সাথে কানেক্ট করা
-            document.querySelector('.dep-btn').onclick = () => openModal('depModal');
-            document.querySelector('.win-btn').onclick = () => openModal('withdrawModal');
-
-            // ৫. শুরুতে ব্যালেন্স ০.০০ সেট করা
-            document.getElementById('mainBalance').innerText = "৳ 0.00";
+      <script>
+        // ১. পপআপ ফাংশন
+        function openModal(id) { 
+            const modal = document.getElementById(id);
+            if(modal) modal.style.display = "flex"; 
+        }
+        function closeModal(id) { 
+            const modal = document.getElementById(id);
+            if(modal) modal.style.display = "none"; 
         }
 
-        function handleLogin() {
-    const user = document.getElementById('userInput').value;
-    const pass = document.getElementById('passInput').value;
+        // ২. সার্চ ফাংশন (Corrected)
+        const searchInput = document.getElementById('gameSearch');
+        const cards = document.getElementsByClassName('game-card');
+        
+        if(searchInput) {
+            searchInput.addEventListener('keyup', () => {
+                let filter = searchInput.value.toUpperCase();
+                for (let card of cards) {
+                    let pTag = card.getElementsByTagName('p')[0];
+                    if(pTag) {
+                        let txt = pTag.innerText || pTag.textContent;
+                        card.style.display = txt.toUpperCase().includes(filter) ? "" : "none";
+                    }
+                }
+            });
+        }
 
-    if(user && pass) {
-        // ১. গেস্ট এরিয়া লুকিয়ে ইউজার প্রোফাইল এরিয়া দেখানো
-        document.getElementById('guestArea').style.display = "none";
-        document.getElementById('userArea').style.display = "flex";
-        
-        // ২. ডিপোজিট ও উইথড্র বাটনগুলোকে পপআপের সাথে কানেক্ট করা (এই অংশটি এখানে দিন)
-        document.querySelector('.dep-btn').onclick = () => openModal('depModal');
-        document.querySelector('.win-btn').onclick = () => openModal('withdrawModal');
-        
-        alert("স্বাগতম, " + user + "!");
-        closeModal('loginModal');
-    } else {
-        alert("সঠিক তথ্য দিন!");
-    }
-}
+        // ৩. অটো-লগইন লজিক (Common Function)
+        function activateUserPanel(username) {
+            // গেস্ট বাটন লুকিয়ে ইউজার প্যানেল দেখানো
+            document.getElementById('guestArea').style.display = "none";
+            document.getElementById('userArea').style.display = "flex";
+            
+            // ব্যালেন্স সেট করা
+            document.getElementById('mainBalance').innerText = "৳ 0.00";
+
+            // ডিপোজিট ও উইথড্র বাটনকে পপআপের সাথে কানেক্ট করা
+            const depBtn = document.querySelector('.dep-btn');
+            const winBtn = document.querySelector('.win-btn');
+
+            if(depBtn) depBtn.onclick = () => openModal('depModal');
+            if(winBtn) winBtn.onclick = () => openModal('withdrawModal');
+            
+            if(username) alert("স্বাগতম, " + username + "!");
+        }
+
+        // ৪. রেজিস্ট্রেশন করার সাথে সাথে অটো লগইন
+        function handleRegistration() {
+            // এখানে আপনি চাইলে ইনপুট চেক যোগ করতে পারেন
+            alert('REGISTRATION SUCCESSFUL!');
+            closeModal('regModal');
+            activateUserPanel(); // ইউজার প্যানেল একটিভ করা
+        }
+
+        // ৫. লগইন ফাংশন
+        function handleLogin() {
+            const user = document.getElementById('userInput').value;
+            const pass = document.getElementById('passInput').value;
+
+            if(user && pass) {
+                closeModal('loginModal');
+                activateUserPanel(user); // ইউজার প্যানেল একটিভ করা
+            } else {
+                alert("সঠিক ইউজারনেম ও পাসওয়ার্ড দিন!");
+            }
+        }
     </script>
+      
 </body>
 </html>

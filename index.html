@@ -144,6 +144,48 @@
             <button class="btn-log" style="width:100%; background:#22c55e" onclick="alert('Registration Successful!')">REGISTER</button>
         </div>
     </div>
+<!-- ১. ডিপোজিট পপআপ -->
+<div id="depModal" class="modal">
+    <div class="modal-content" style="text-align: left;">
+        <span class="close-btn" onclick="closeModal('depModal')">&times;</span>
+        <div class="modal-header">DEPOSIT MONEY</div>
+        
+        <label class="label" style="font-size: 10px; color: #888;">SELECT GATEWAY</label>
+        <select class="form-input">
+            <option>BKASH PERSONAL</option>
+            <option>NAGAD PERSONAL</option>
+        </select>
+
+        <div style="background: #1a3126; padding: 15px; border-radius: 8px; margin-bottom: 15px; border: 1px dashed #facc15;">
+            <p style="font-size: 10px; color: #facc15;">SEND MONEY TO:</p>
+            <p style="font-size: 18px; font-weight: bold; letter-spacing: 2px; color: #fff;">017XXXXXXXX</p>
+        </div>
+
+        <input type="number" class="form-input" placeholder="AMOUNT (MIN: 200)">
+        <input type="text" class="form-input" placeholder="TRANSACTION ID (TrxID)">
+        
+        <button class="submit-btn" style="background: #22c55e;" onclick="alert('আপনার ডিপোজিট রিকোয়েস্ট পেন্ডিং আছে!')">SUBMIT DEPOSIT</button>
+    </div>
+</div>
+
+<!-- ২. উইথড্র পপআপ -->
+<div id="withdrawModal" class="modal">
+    <div class="modal-content" style="text-align: left;">
+        <span class="close-btn" onclick="closeModal('withdrawModal')">&times;</span>
+        <div class="modal-header">WITHDRAW MONEY</div>
+        
+        <label class="label" style="font-size: 10px; color: #888;">WITHDRAW METHOD</label>
+        <select class="form-input">
+            <option>BKASH</option>
+            <option>NAGAD</option>
+        </select>
+
+        <input type="text" class="form-input" placeholder="YOUR WALLET NUMBER">
+        <input type="number" class="form-input" placeholder="AMOUNT (MIN: 500)">
+        
+        <button class="submit-btn" onclick="alert('আপনার উইথড্র রিকোয়েস্ট পাঠানো হয়েছে!')">REQUEST WITHDRAW</button>
+    </div>
+</div>
 
     <footer>
         <a href="#" class="nav-item"><span>🏠</span>HOME</a>

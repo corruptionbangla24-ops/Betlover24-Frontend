@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Betlover24 - Professional Master Version</title>
+    
+    <!-- স্লাইডারের জন্য Swiper CSS -->
+    <link rel="stylesheet" href="https://jsdelivr.net" />
+
+    <style>
+        /* ১. মূল ডিজাইন ও কালার প্যালেট */
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Segoe UI', Arial, sans-serif; }
+        body { background-color: #05110b; color: white; padding-bottom: 80px; overflow-x: hidden; }
+
+        /* ২. ডায়নামিক হেডার */
+        header { 
+            background-color: #05110b; padding: 12px; display: flex; 
+            justify-content: space-between; align-items: center; 
+            border-bottom: 1px solid #1a3126; position: sticky; top: 0; z-index: 1000; 
+        }
+        .logo { color: #facc15; font-weight: bold; font-size: 18px; font-style: italic; text-transform: uppercase; cursor: pointer; }
+        
+        /* গেস্ট ও ইউজার বাটন স্টাইল */
+        .header-btns, .user-profile { display: flex; gap: 8px; align-items: center; }
+        button { padding: 8px 12px; border-radius: 5px; font-size: 10px; border: none; font-weight: bold; text-transform: uppercase; cursor: pointer; transition: 0.3s; }
+        
+        .btn-log { background-color: #facc15; color: black; }
+        .btn-reg { background-color: #1a3126; color: white; border: 1px solid #2d4d3d; }
+        .dep-btn { background-color: #22c55e; color: white; }
+        .win-btn { background-color: #facc15; color: black; }
+
+        .balance-box { text-align: right; line-height: 1.2; }
+        .balance-label { font-size: 9px; color: #888; display: block; }
+        .balance-amt { font-size: 13px; color: #facc15; font-weight: bold; }
+
+        /* ৩. স্লাইডার এরিয়া */
+        .swiper { width: 92%; height: 150px; margin: 15px auto; border-radius: 12px; border: 1px solid #1a3126; }
+        .swiper-slide img { width: 100%; height: 100%; object-fit: cover; }
+
+        /* ৪. নোটিশ বোর্ড */
+        .notice-board { background: rgba(0,0,0,0.4); padding: 8px; border-top: 1px solid #1a3126; border-bottom: 1px solid #1a3126; }
+        .notice-board marquee { color: #facc15; font-size: 12px; font-weight: bold; text-transform: uppercase; }
+
+        /* ৫. সার্চ বক্স */
+        .search-container { padding: 15px; }
+        .search-box { 
+            width: 100%; padding: 12px 20px; border-radius: 25px; 
+            border: 1px solid #1a3126; background: #0a1f15; color: white; 
+            outline: none; text-transform: uppercase; font-size: 12px; 
+        }
+
+        /* ৬. গেম গ্রিড */
+        .game-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; padding: 0 15px; }
+        .game-card { background: #0a1f15; border-radius: 10px; border: 1px solid #152e22; overflow: hidden; text-align: center; }
+        .game-card img { width: 100%; height: 85px; object-fit: cover; background: #1a3126; }
+        .game-card p { font-size: 9px; color: #facc15; padding: 10px 2px; font-weight: bold; text-transform: uppercase; }
+
+        /* ৭. পপআপ (Modal) এবং ফরগোট পাসওয়ার্ড */
+        .modal { display: none; position: fixed; z-index: 2000; left: 0; top: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); align-items: center; justify-content: center; }
+        .modal-content { background: #0a1f15; padding: 25px; border-radius: 15px; width: 85%; max-width: 350px; border: 1px solid #facc15; position: relative; text-align: center; }
+        .close-btn { position: absolute; top: 10px; right: 15px; color: #facc15; font-size: 24px; cursor: pointer; }
+        .modal-header { font-size: 16px; color: #facc15; font-weight: bold; margin-bottom: 20px; text-transform: uppercase; }
+        .form-input { width: 100%; padding: 12px; margin-bottom: 15px; background: #05110b; border: 1px solid #1a3126; border-radius: 8px; color: white; outline: none; }
+        .forgot-pass { margin-top: 15px; font-size: 11px; color: #facc15; cursor: pointer; text-transform: uppercase; font-weight: bold; }
+
+        /* ৮. ফুটান মেনু */
+        footer { position: fixed; bottom: 0; width: 100%; background: #05110b; border-top: 1px solid #1a3126; display: flex; justify-content: space-around; padding: 12px 0; z-index: 1000; }
+        .nav-item { text-align: center; color: #facc15; text-decoration: none; font-size: 9px; font-weight: bold; text-transform: uppercase; }
+        .nav-item span { display: block; font-size: 20px; margin-bottom: 3px; }
+    </style>
+</head>
+<body>
+
+    <!-- হেডার: লগইন লজিকসহ -->
+    <header>
+        <div class="logo" onclick="location.reload()">BETLOVER24</div>
+        
+        <!-- গেস্ট বাটন -->
+        <div class="header-btns" id="guestArea">
+            <button class="btn-log" onclick="openModal('loginModal')">LOGIN</button>
+            <button class="btn-reg" onclick="openModal('regModal')">REGISTRATION</button>
+        </div>
+
+        <!-- ইউজার প্রোফাইল (লগইনের পর আসবে) -->
+        <div class="user-profile" id="userArea" style="display: none;">
+            <div class="balance-box">
+                <span class="balance-label">BALANCE</span>
+                <span class="balance-amt" id="mainBalance">৳ 0.00</span>
+            </div>
+            <button class="dep-btn" onclick="alert('ডিপোজিট পেজ লোড হচ্ছে...')">DEPOSIT</button>
+            <button class="win-btn" onclick="alert('উইথড্র পেজ লোড হচ্ছে...')">WITHDRAW</button>
+        </div>
+    </header>
+
+    <!-- অটোমেটিক স্লাইডার -->
+    <div class="swiper mySwiper">
+        <div class="swiper-wrapper">
+            <div class="swiper-slide"><img src="slider1.jpg" alt="Offer 1"></div>
+            <div class="swiper-slide"><img src="slider2.jpg" alt="Bonus 100%"></div>
+            <div class="swiper-slide"><img src="slider3.jpg" alt="Join Now"></div>
+        </div>
+        <div class="swiper-pagination"></div>
+    </div>
+
+    <div class="notice-board">
+        <marquee>WELCOME TO BETLOVER24! GET 10% MONTHLY BONUS ON INVESTMENT. JOIN OUR TELEGRAM FOR UPDATES...</marquee>
+    </div>
+
+    <div class="search-container">
+        <input type="text" id="gameSearch" class="search-box" placeholder="SEARCH GAMES...">
+    </div>
+
+    <!-- গেম গ্রিড -->
+    <div class="game-grid" id="gameGrid">
+        <div class="game-card"><img src="ace.png" alt=""><p>SUPER ACE</p></div>
+        <div class="game-card"><img src="chicken.png" alt=""><p>CHICKEN ROAD</p></div>
+        <div class="game-card"><img src="lottery.png" alt=""><p>LOTTERY</p></div>
+        <div class="game-card"><img src="ludo.png" alt=""><p>LUDO</p></div>
+        <div class="game-card"><img src="slot.png" alt=""><p>LUCKY SLOT</p></div>
+        <div class="game-card"><img src="cric.png" alt=""><p>CRICKET</p></div>
+    </div>
+
+    <!-- লগইন মোডাল (ফরগোট পাসওয়ার্ডসহ) -->
+    <div id="loginModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('loginModal')">&times;</span>
+            <div class="modal-header">User Login</div>
+            <input type="text" id="userInput" class="form-input" placeholder="USERNAME / PHONE">
+            <input type="password" id="passInput" class="form-input" placeholder="PASSWORD">
+            <button class="btn-log" style="width:100%" onclick="handleLogin()">LOGIN</button>
+            <div class="forgot-pass" onclick="alert('সাপোর্ট টিমের সাথে যোগাযোগ করুন!')">FORGOT PASSWORD?</div>
+        </div>
+    </div>
+
+    <!-- রেজিস্ট্রেশন মোডাল -->
+    <div id="regModal" class="modal">
+        <div class="modal-content">
+            <span class="close-btn" onclick="closeModal('regModal')">&times;</span>
+            <div class="modal-header">Create Account</div>
+            <input type="text" class="form-input" placeholder="FULL NAME">
+            <input type="text" class="form-input" placeholder="PHONE NUMBER">
+            <input type="password" class="form-input" placeholder="SET PASSWORD">
+            <button class="btn-log" style="width:100%; background:#22c55e" onclick="alert('Registration Successful!')">REGISTER</button>
+        </div>
+    </div>
+
+    <footer>
+        <a href="#" class="nav-item"><span>🏠</span>HOME</a>
+        <a href="#" class="nav-item"><span>⚽</span>SPORTS</a>
+        <a href="#" class="nav-item"><span>🎁</span>PROMO</a>
+        <a href="#" class="nav-item"><span>🎰</span>CASINO</a>
+        <a href="#" class="nav-item"><span>👤</span>ACCOUNT</a>
+    </footer>
+
+    <!-- স্লাইডার এবং লজিক স্ক্রিপ্ট -->
+    <script src="https://jsdelivr.net"></script>
+    <script>
+        // ১. স্লাইডার ইনিশিয়ালাইজেশন
+        const swiper = new Swiper(".mySwiper", {
+            loop: true,
+            autoplay: { delay: 3000, disableOnInteraction: false },
+            pagination: { el: ".swiper-pagination", clickable: true },
+        });
+
+        // ২. পপআপ ফাংশন
+        function openModal(id) { document.getElementById(id).style.display = "flex"; }
+        function closeModal(id) { document.getElementById(id).style.display = "none"; }
+
+        // ৩. সার্চ ফাংশন
+        const searchInput = document.getElementById('gameSearch');
+        const cards = document.getElementsByClassName('game-card');
+        searchInput.addEventListener('keyup', () => {
+            let filter = searchInput.value.toUpperCase();
+            for (let card of cards) {
+                let txt = card.getElementsByTagName('p')[0].innerText;
+                card.style.display = txt.toUpperCase().includes(filter) ? "" : "none";
+            }
+        });
+
+        // ৪. লগইন লজিক (ডিপোজিট/উইথড্র সক্রিয় করা)
+        function handleLogin() {
+            const user = document.getElementById('userInput').value;
+            const pass = document.getElementById('passInput').value;
+            if(user && pass) {
+                document.getElementById('guestArea').style.display = "none";
+                document.getElementById('userArea').style.display = "flex";
+                closeModal('loginModal');
+                alert("স্বাগতম, " + user + "!");
+            } else {
+                alert("সঠিক তথ্য দিন!");
+            }
+        }
+    </script>
+</body>
+</html>

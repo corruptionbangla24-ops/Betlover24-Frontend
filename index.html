@@ -373,16 +373,14 @@
             if(username) alert("স্বাগতম, " + username + "!");
         }
 
-        async function handleRegistration() {
-            // ১. ইনপুট ফিল্ড থেকে ডাটা সংগ্রহ
+                async function handleRegistration() {
             const fullName = document.querySelector('#regModal input[placeholder="FULL NAME"]').value;
             const password = document.querySelector('#regModal input[placeholder="SET PASSWORD"]').value;
 
-            // ২. ভ্যালিডেশন
             if (!fullName || !password) return alert("দয়া করে নাম এবং পাসওয়ার্ড দুটোই দিন!");
 
             try {
-                // ৩. সার্ভারে ডাটা পাঠানো (POST Request)
+                // ব্যাকটিক (`) ব্যবহার করা হয়েছে এখানে
                 const response = await fetch(`${API_URL}/register`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -392,12 +390,10 @@
                 const result = await response.json();
 
                 if (response.ok) {
-                    alert('অভিনন্দন! রেজিস্ট্রেশন সফল হয়েছে।');
+                    alert('অভিনন্দন! রেজিস্ট্রেশন সফল হয়েছে');
                     closeModal('regModal');
-                    
-                    // ৪. ব্রাউজারে ইউজার সেশন সেভ রাখা
                     localStorage.setItem('user', fullName);
-                    location.reload(); // পেজ রিফ্রেশ করে লগইন প্যানেল চালু করা
+                    location.reload(); 
                 } else {
                     alert("ভুল হয়েছে: " + result.message);
                 }
@@ -406,9 +402,10 @@
                 alert("সার্ভার কানেকশন এরর! রেন্ডারে গিয়ে দেখুন আপনার সার্ভারটি কি লাইভ আছে?");
             }
         }
-// আপনার রেন্ডার ব্যাকএন্ড লিঙ্ক
-    
-        const API_URL = "https://betlover-backend.onrender.com/api";
+
+        // আপনার রেন্ডার ব্যাকএন্ড লিঙ্ক (শেষে /api সহ)
+        const API_URL = "https://onrender.com";
+
 function updateNumber() {
     const method = document.getElementById('methodSelect').value;
     const numberText = document.getElementById('displayNumber');

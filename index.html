@@ -406,7 +406,9 @@
                 alert("সার্ভার কানেকশন এরর! রেন্ডারে গিয়ে দেখুন আপনার সার্ভারটি কি লাইভ আছে?");
             }
         }
-
+// আপনার রেন্ডার ব্যাকএন্ড লিঙ্ক
+    
+        const API_URL = "https://betlover-backend.onrender.com/api";
 function updateNumber() {
     const method = document.getElementById('methodSelect').value;
     const numberText = document.getElementById('displayNumber');
@@ -426,10 +428,7 @@ function updateNumber() {
         labelText.innerText = "CASH OUT TO (NAGAD A):";
     }
 }
-        // আপনার রেন্ডার ব্যাকএন্ড লিঙ্ক
-    
-        const API_URL = "https://betlover-backend.onrender.com/api";
-
+        
         
         // ৫. লগইন ফাংশন
         function handleLogin() {

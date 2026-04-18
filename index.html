@@ -373,13 +373,40 @@
             if(username) alert("স্বাগতম, " + username + "!");
         }
 
-        // ৪. রেজিস্ট্রেশন করার সাথে সাথে অটো লগইন
-        function handleRegistration() {
-            // এখানে আপনি চাইলে ইনপুট চেক যোগ করতে পারেন
-            alert('REGISTRATION SUCCESSFUL!');
-            closeModal('regModal');
-            activateUserPanel(); // ইউজার প্যানেল একটিভ করা
+        async function handleRegistration() {
+            // ১. ইনপুট ফিল্ড থেকে ডাটা সংগ্রহ
+            const fullName = document.querySelector('#regModal input[placeholder="FULL NAME"]').value;
+            const password = document.querySelector('#regModal input[placeholder="SET PASSWORD"]').value;
+
+            // ২. ভ্যালিডেশন
+            if (!fullName || !password) return alert("দয়া করে নাম এবং পাসওয়ার্ড দুটোই দিন!");
+
+            try {
+                // ৩. সার্ভারে ডাটা পাঠানো (POST Request)
+                const response = await fetch(`${API_URL}/register`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ username: fullName, password: password })
+                });
+
+                const result = await response.json();
+
+                if (response.ok) {
+                    alert('অভিনন্দন! রেজিস্ট্রেশন সফল হয়েছে।');
+                    closeModal('regModal');
+                    
+                    // ৪. ব্রাউজারে ইউজার সেশন সেভ রাখা
+                    localStorage.setItem('user', fullName);
+                    location.reload(); // পেজ রিফ্রেশ করে লগইন প্যানেল চালু করা
+                } else {
+                    alert("ভুল হয়েছে: " + result.message);
+                }
+            } catch (err) {
+                console.error(err);
+                alert("সার্ভার কানেকশন এরর! রেন্ডারে গিয়ে দেখুন আপনার সার্ভারটি কি লাইভ আছে?");
+            }
         }
+
 function updateNumber() {
     const method = document.getElementById('methodSelect').value;
     const numberText = document.getElementById('displayNumber');

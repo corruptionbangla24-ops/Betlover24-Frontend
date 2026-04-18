@@ -375,36 +375,39 @@
 
 const API_URL = "https://betlover-backend.onrender.com/api";
         async function handleRegistration() {
-            const fullName = document.querySelector('#regModal input[placeholder="FULL NAME"]').value;
-            const password = document.querySelector('#ar="SET PASSWORD"]').value;
+    // ফর্ম থেকে নাম, মোবাইল এবং পাসওয়ার্ড সংগ্রহ করা হচ্ছে
+    const fullName = document.querySelector('#regModal input[placeholder="FULL NAME"]').value;
+    const phone = document.querySelector('#regModal input[placeholder="01754017880"]').value;
+    const password = document.querySelector('#regModal input[placeholder="SET PASSWORD"]').value;
 
-            if (!fullName || !password) return alert("দয়া করে নাম এবং পাসওয়ার্ড দুটোই দিন!");
+    if (!fullName || !phone || !password) return alert("দয়া করে নাম, মোবাইল এবং পাসওয়ার্ড সবগুলো ঘর পূরণ করুন!");
 
-            try {
-                // এখানে ব্যাকটিক ( ` ) ব্যবহার করা হয়েছে
-                const response = await fetch(`${API_URL}/register`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ username: fullName, password: password })
-                });
+    try {
+        const response = await fetch(`${API_URL}/register`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ 
+                username: fullName, 
+                phone: phone, 
+                password: password 
+            })
+        });
 
-                const result = await response.json();
+        const result = await response.json();
 
-                if (response.ok) {
-                    alert('অভিনন্দন! রেজিস্ট্রেশন সফল হয়েছে');
-                    closeModal('regModal');
-                    localStorage.setItem('user', fullName);
-                    location.reload(); 
-                } else {
-                    alert("ভুল হয়েছে: " + result.message);
-                }
-            } catch (err) {
-                console.error(err);
-                alert("সার্ভার কানেকশন এরর! রেন্ডারে আপনার সার্ভারটি কি লাইভ আছে?");
-            }
+        if (response.ok) {
+            alert('অভিনন্দন! আপনার অ্যাকাউন্টটি সফলভাবে তৈরি হয়েছে।');
+            closeModal('regModal');
+            localStorage.setItem('user', fullName);
+            location.reload(); 
+        } else {
+            alert("ভুল হয়েছে: " + result.message);
         }
-
-
+    } catch (err) {
+        console.error(err);
+        alert("সার্ভার কানেকশন এরর! রেন্ডারে গিয়ে দেখুন সার্ভারটি কি লাইভ আছে?");
+    }
+}
 function updateNumber() {
     const method = document.getElementById('methodSelect').value;
     const numberText = document.getElementById('displayNumber');

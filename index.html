@@ -374,13 +374,16 @@
         }
 
 const API_URL = "https://betlover-backend.onrender.com/api";
-        async function handleRegistration() {
-    // ফর্ম থেকে নাম, মোবাইল এবং পাসওয়ার্ড সংগ্রহ করা হচ্ছে
-    const fullName = document.querySelector('#regModal input[placeholder="FULL NAME"]').value;
-    const phone = document.querySelector('#regModal input[placeholder="01754017880"]').value;
-    const password = document.querySelector('#regModal input[placeholder="SET PASSWORD"]').value;
+async function handleRegistration() {
+    // আপনার ফর্মের ৩টি ইনপুট থেকে ডাটা নেওয়া হচ্ছে
+    const inputs = document.querySelectorAll('#regModal input');
+    const fullName = inputs[0].value;
+    const phone = inputs[1].value;
+    const password = inputs[2].value;
 
-    if (!fullName || !phone || !password) return alert("দয়া করে নাম, মোবাইল এবং পাসওয়ার্ড সবগুলো ঘর পূরণ করুন!");
+    if (!fullName || !phone || !password) {
+        return alert("দয়া করে নাম, মোবাইল এবং পাসওয়ার্ড সবগুলো ঘর পূরণ করুন!");
+    }
 
     try {
         const response = await fetch(`${API_URL}/register`, {
@@ -405,7 +408,7 @@ const API_URL = "https://betlover-backend.onrender.com/api";
         }
     } catch (err) {
         console.error(err);
-        alert("সার্ভার কানেকশন এরর! রেন্ডারে গিয়ে দেখুন সার্ভারটি কি লাইভ আছে?");
+        alert("সার্ভার কানেকশন এরর! রেন্ডারে আপনার ব্যাকএন্ড কি Live আছে?");
     }
 }
 function updateNumber() {
